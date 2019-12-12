@@ -1,0 +1,34 @@
+## Environment
+
+* Python 3.6+
+
+
+### Installation
+
+#### For Development
+
+* Clone the repo `$ git clone https://github.com/14-cities/WakeVoter.git`
+* Install [Poetry](https://python-poetry.org/docs/) if needed 
+* Install requirements with Poetry `$ poetry install`
+* Request an (API key)[https://api.census.gov/data/key_signup.html] from  the US Census
+* Create a `.env` file with `CENSUS_API_KEY={your key}` in the root of the project
+
+
+## Using the Wake Vote CLI
+
+Once installed, the WakeVote CLI can be invoked with the command `$ wakevote {STATES or COUNTIES}`
+and it will proceed to download the shapefiles for all counties that match the results.
+
+To download shapefiles for all counties in a given state, you can pass the two digit FIP code or
+two letter state abbreviation. For counties, you can pass in either the county name or the county
+FIPS code, but be aware that some county names are ambiguous and may download more data than
+intended.
+
+Examples:
+* `$ wakevote NC` will download data for all counties in North Carolina
+* `$ wakevote 37` will download data for all counties in North Carolina
+* `$ wakevote 37183` will download data for Wake county in NC
+* `$ wakevote Lee` will download data for all counties named Lee (13 results!)
+* `$ wakevote Lee GA` will download data for all counties named Lee and all counties in GA
+* `$ wakevote "Lee GA"` will download data for Lee county in GA
+* `$ wakevote NC PA FL` will download data for all three states

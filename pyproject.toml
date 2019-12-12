@@ -6,10 +6,17 @@ authors = ["Josh West <18324+joshmaker@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pandas = "^0.25.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+python-dotenv = "^0.10.3"
+
+[tool.poetry.scripts]
+wakevote = 'wakethevote.cli:main'
+
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
