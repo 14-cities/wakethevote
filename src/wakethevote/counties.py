@@ -1,6 +1,6 @@
 import pandas as pd
 
-from . import DATA_PATH
+from . import DATA_PATH, logger
 
 __all__ = ("find_counties",)
 
@@ -25,20 +25,25 @@ def find_counties(text):
     """Given a bit of text (FIP code, name, etc), yield all the matching counties"""
     counties = get_fips()
 
+    logger.debug(f"* Finding Counties that match {text}: ")
     for component in text.split():
 
         # State (either 2 digit FIP or 2 letter state abbreviation)
         if len(component) == 2:
             if component.isnumeric():
+                logger.debug(f"  - Filtering for state FIPS {component}")
                 counties = counties[counties.fips.str.startswith(component)]
             else:
+                logger.debug(f"  - Filtering for state name {component}")
                 counties = counties[counties.state == component.upper()]
 
         # Counties
         else:
             if component.isnumeric():
+                logger.debug(f"  - Filtering for county FIPS {component}")
                 counties = counties[counties.fips == component]
             else:
+                logger.debug(f"  - Filtering for county name {component}")
                 counties = counties[counties.name == component]
 
     yield from counties.reset_index().itertuples()
