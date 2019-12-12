@@ -7,6 +7,8 @@ authors = ["Josh West <18324+joshmaker@users.noreply.github.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 pandas = "^0.25.3"
+geopandas = "^0.6.2"
+requests = "^2.22.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
