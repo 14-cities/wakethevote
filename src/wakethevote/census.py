@@ -1,10 +1,13 @@
 import os
 from datetime import datetime
-from pathlib import Path
 
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 import requests
+
+from . import logger
+from .paths import get_census_data_path, get_county_data_path
+from .types import County, CountyFips, StateFips
 
 # Load environment variables from a local .env file if one exists
 # in a production environment, dotenv would not be installed and environement
@@ -16,11 +19,8 @@ except ModuleNotFoundError:
 else:
     load_dotenv(find_dotenv())
 
-from . import logger
-from .types import County, StateFips, CountyFips
 
-
-def load_census_data(county: County, path: Path) -> gpd.GeoDataFrame:
+def load_census_block_data(county: County) -> gpd.GeoDataFrame:
     """Imports census block features for the supplied county FIPS code
 
     Description:
@@ -33,21 +33,19 @@ def load_census_data(county: County, path: Path) -> gpd.GeoDataFrame:
 
     Args:
         county(tuple): County
-        path(str): Name to save output shapefile
+        state_path(str): path to statewide data
+        county_path(str): path to county specific data
 
     Returns:
         Geodataframe of census blocks for the county with race data
     """
-    logger.info(f"Loading census data...")
-
     api_key: str = os.getenv("CENSUS_API_KEY", "")
     assert api_key, "CENSUS_API_KEY environment variable is not defined"
 
     state_fips = StateFips(county.fips[:2])
     county_fips = CountyFips(county.fips[2:])
 
-    county_path = path / "counties" / county.name
-    county_path.mkdir(parents=True, exist_ok=True)
+    county_path = get_county_data_path(county)
 
     county_block_file = county_path / f"{county.name}_blocks.shp"
 
@@ -62,8 +60,8 @@ def load_census_data(county: County, path: Path) -> gpd.GeoDataFrame:
     url = f"https://www2.census.gov/geo/tiger/TIGER2010BLKPOPHU/tabblock2010_{state_fips}_pophu.zip"
 
     # See if the statewide block shapefile has been downloaded
-    census_path = path / "census"
-    census_path.mkdir(parents=True, exist_ok=True)
+    census_path = get_census_data_path(county.state)
+
     state_blocks_file = census_path / "StateBlocks.shp"
     if os.path.exists(state_blocks_file):
         logger.debug(f"  - Loading blocks from {state_blocks_file}")
@@ -153,7 +151,6 @@ def get_block_attributes(
         state_fips(str): State FIPS code (e.g. '37')
         county_fips(str): County FIPS code (e.g. '183')
         api_key(str): Census API key
-        output_csv(str): Filename to save data
 
     Returns:
         geodataframe of census blocks for the county

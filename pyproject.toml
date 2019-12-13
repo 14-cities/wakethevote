@@ -9,6 +9,7 @@ python = "^3.8"
 pandas = "^0.25.3"
 geopandas = "^0.6.2"
 requests = "^2.22.0"
+rtree = "^0.9.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

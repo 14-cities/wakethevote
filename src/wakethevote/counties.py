@@ -1,7 +1,9 @@
-from typing import Iterator, NamedTuple
+from typing import Iterator
+
 import pandas as pd
 
-from . import DATA_PATH, logger
+from . import logger
+from .paths import FIPS_TSV_PATH
 from .types import County
 
 __all__ = ("find_counties",)
@@ -11,9 +13,10 @@ fips = None
 
 
 def get_fips() -> pd.DataFrame:
+    """Get a copy of the fips data"""
     global fips
     if fips is None:
-        with open(DATA_PATH / "fips.csv") as fips_csv:
+        with open(FIPS_TSV_PATH) as fips_csv:
             fips = pd.read_csv(
                 fips_csv, sep="\t", usecols=("fips", "name", "state"), dtype=str,
             )
