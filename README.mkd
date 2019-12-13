@@ -32,3 +32,12 @@ Examples:
 * `$ wakevote Lee GA` will download data for all counties named Lee and all counties in GA
 * `$ wakevote "Lee GA"` will download data for Lee county in GA
 * `$ wakevote NC PA FL` will download data for all three states
+
+The CLI also has a **preview** option that will generate an HTML preview file for a county's org
+units and open it in a webbrowser. It takes a county or list of counties in the same format
+described above, but with the addition of a `--preview` flag
+
+Examples:
+* `$ wakevote "Wake NC"` will open a webbrowser with a preview of Wake county North Caroina
+
+The CLI can also be invoked by calling the CLI script directly with `$ python src/wakethevote/cli.py`
