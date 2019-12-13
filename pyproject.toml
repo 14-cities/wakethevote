@@ -2,7 +2,7 @@
 name = "wakethevote"
 version = "0.1.0"
 description = ""
-authors = ["Josh West <18324+joshmaker@users.noreply.github.com>"]
+authors = ["14 Cities <info@14cities.org>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
