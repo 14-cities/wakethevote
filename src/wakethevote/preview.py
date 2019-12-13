@@ -3,16 +3,20 @@ import webbrowser
 import folium
 import geopandas as gpd
 
+from .logger import logger
 from .paths import get_county_data_path
 from .types import County
 
 
 def preview_county(county: County) -> None:
     # Get data folder for counties
+    logger.info("Generating HTML preview for {county.name} {county.state}")
 
     county_path = get_county_data_path(county)
 
-    org_units = gpd.read_file(county_path / f"{county.name}_orgunits.shp")
+    shapefile_name = county_path / f"{county.name}_orgunits.shp"
+    logger.debug(f" - Reading shapefile from {shapefile_name}")
+    org_units = gpd.read_file(shapefile_name)
 
     # Get centroid
     centroid = org_units.unary_union.centroid
@@ -31,6 +35,7 @@ def preview_county(county: County) -> None:
 
     # Save the map
     map_file_name = county_path / f"{county.name}_preview.html"
+    logger.debug(f" - Saving HTML map file to {map_file_name}")
     m.save(str(map_file_name))
 
     webbrowser.open(f"file://{map_file_name}")

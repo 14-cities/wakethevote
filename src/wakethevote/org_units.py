@@ -2,7 +2,7 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 
-from . import logger
+from .logger import logger
 
 
 def get_org_units(blocks: gpd.GeoDataFrame) -> gpd.GeoDataFrame:

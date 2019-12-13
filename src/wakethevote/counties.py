@@ -2,7 +2,7 @@ from typing import Iterator
 
 import pandas as pd
 
-from . import logger
+from .logger import logger
 from .paths import FIPS_TSV_PATH
 from .types import County
 

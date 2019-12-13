@@ -5,7 +5,7 @@ import geopandas as gpd
 import pandas as pd
 import requests
 
-from . import logger
+from .logger import logger
 from .paths import get_census_data_path, get_county_data_path
 from .types import County, CountyFips, StateFips
 

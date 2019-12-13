@@ -1,5 +1,5 @@
-from . import logger
 from .census import load_census_block_data
+from .logger import logger
 from .org_units import get_org_units
 from .paths import get_county_data_path
 

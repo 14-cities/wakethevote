@@ -1,8 +1,8 @@
 import argparse
 import logging
 
-from . import logger
 from .counties import find_counties
+from .logger import logger
 from .main import download_county
 from .preview import preview_county
 
