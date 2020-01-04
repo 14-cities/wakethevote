@@ -5,7 +5,7 @@ description = ""
 authors = ["14 Cities <info@14cities.org>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 pandas = "^0.25.3"
 geopandas = "^0.6.2"
 requests = "^2.22.0"
@@ -19,8 +19,10 @@ python-dotenv = "^0.10.3"
 [tool.poetry.scripts]
 wakevote = 'wakethevote.cli:main'
 
-
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
+[tool.dephell.main]
+from = {format = "poetry", path = "poetry"}
+to = {format = "setup.py", path = "setup.py"}
