@@ -162,7 +162,7 @@ def get_org_units(blocks: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
 
     # Not enough BHH
     if not num_rows:
-        return
+        return all_org_units
 
     all_org_units["Rando"] = np.random.randint(num_rows, size=(num_rows, 1))
     all_org_units.sort_values(by="Rando", axis=0, inplace=True)
