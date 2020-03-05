@@ -54,7 +54,7 @@ units and open it in a webbrowser. It takes a county or list of counties in the 
 described above, but with the addition of a `--preview` flag
 
 Examples:
-* `$ wakevote "Wake NC"` will open a webbrowser with a preview of Wake county North Caroina
+* `$ wakevote --preview "Wake NC"` will open a webbrowser with a preview of Wake county North Caroina
 
 The CLI can also be invoked by calling the CLI script directly with `$ python src/wakethevote/cli.py`
 
