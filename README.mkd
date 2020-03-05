@@ -32,28 +32,23 @@
 
 ## Using the Wake Vote CLI
 
-Once installed, the WakeVote CLI can be invoked with the command `$ wakevote {STATES or COUNTIES}`
-and it will proceed to download the shapefiles for all counties that match the results.
+Once installed, the WakeVote CLI can be invoked with the command `$ wakevote` and it can perform three different actions.
+* `--download` is used to download the shapefiles for all counties that match the results.
+* `--preview` is used to preview a shapefile in a webbrowser
+* `--export` is used to export a single GeoJSON file from all the shapefiles downloaded with the `--download` flag
 
-To download shapefiles for all counties in a given state, you can pass the two digit FIP code or
-two letter state abbreviation. For counties, you can pass in either the county name or the county
-FIPS code, but be aware that some county names are ambiguous and may download more data than
-intended.
-
-Examples:
-* `$ wakevote NC` will download data for all counties in North Carolina
-* `$ wakevote 37` will download data for all counties in North Carolina
-* `$ wakevote 37183` will download data for Wake county in NC
-* `$ wakevote Lee` will download data for all counties named Lee (13 results!)
-* `$ wakevote Lee GA` will download data for all counties named Lee and all counties in GA
-* `$ wakevote "Lee GA"` will download data for Lee county in GA
-* `$ wakevote NC PA FL` will download data for all three states
-
-The CLI also has a **preview** option that will generate an HTML preview file for a county's org
-units and open it in a webbrowser. It takes a county or list of counties in the same format
-described above, but with the addition of a `--preview` flag
+For all three options, you can pass the two digit FIP code or two letter state abbreviation to act on an entire state. To download, preview, or export individual counties, you can pass in either the county name or the county FIPS code, but be aware that some county names are ambiguous and may act on more counties than intended. If multiple states have the same county name, you may specify both the county and state together wrapped in quotes.
 
 Examples:
+
+* `$ wakevote --download NC` will download data for all counties in North Carolina
+* `$ wakevote --download 37` will download data for all counties in North Carolina
+* `$ wakevote --download 37183` will download data for Wake county in NC
+* `$ wakevote --download Lee` will download data for all counties named Lee (13 results!)
+* `$ wakevote --download Lee GA` will download data for all counties named Lee AND all counties in GA
+* `$ wakevote --download "Lee GA"` will download data for ONLY Lee county in GA
+* `$ wakevote --download "Lee GA" "Wake NC"` will download data for Lee county in GA and Wake county in NC
+* `$ wakevote --download NC PA FL` will download data for all three states
 * `$ wakevote --preview "Wake NC"` will open a webbrowser with a preview of Wake county North Caroina
 
 The CLI can also be invoked by calling the CLI script directly with `$ python src/wakethevote/cli.py`
